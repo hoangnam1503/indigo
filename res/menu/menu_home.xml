@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:indigo="http://schemas.android.com/apk/res-auto" >
+    
+    <item android:id="@+id/action_done"
+        android:icon="@drawable/ic_action_done"
+        android:title="@string/action_done"
+        indigo:showAsAction="always" />
+    
+    <item android:id="@+id/action_setting"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/action_setting"
+        indigo:showAsAction="always" />
+
+</menu>

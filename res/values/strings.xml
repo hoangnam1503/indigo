@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- Application setting -->
     <string name="app_name">indigo</string>
-
+    <string name="action_done">Done</string>
+    <string name="action_setting">Settings</string>
+	<string name="preferences_general">General</string>
 </resources>

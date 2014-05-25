@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Indicator bar features -->
+    <color name="indicator_slider_color">#91c3ff</color>
+    
+    <color name="background_tab_pressed">#6633B5E5</color>
+    
+    <color name="navigation_drawer_background">#fff3f3f3</color>
+    
+</resources>
