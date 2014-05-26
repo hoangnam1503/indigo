@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <!-- Listview elements -->
+    <color name="listview_header_color">#e2e2e2</color>
+    
     <!-- Indicator bar features -->
     <color name="indicator_slider_color">#91c3ff</color>
     
