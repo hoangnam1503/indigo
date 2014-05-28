@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Base" >
         
-        <activity android:name=".SplashActivity" >
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,7 +22,8 @@
         </activity>
         
         <activity android:name=".HomeActivity"
-            android:theme="@style/Theme.Indigo"></activity>
+            android:theme="@style/Theme.Indigo"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

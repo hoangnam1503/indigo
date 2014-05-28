@@ -1,27 +1,35 @@
 package com.android.indigo;
 
-import android.R.menu;
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.android.indigo.adapter.TabPagerAdapter;
 import com.android.indigo.base.FragmentActivityBase;
+import com.android.indigo.dialog.NoteDialog;
+import com.android.indigo.dialog.base.DialogFragmentBase.DialogListener;
 import com.android.indigo.utility.SlidingTabStrip;
 
-public class HomeActivity extends FragmentActivityBase {
+public class HomeActivity extends FragmentActivityBase implements DialogListener {
 	private DrawerLayout mDrawerLayout;
+	private PopupWindow mPopupWindow;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
+		mNoteDialog = new NoteDialog();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.homeDrawer);
 		mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
 			
@@ -76,6 +84,9 @@ public class HomeActivity extends FragmentActivityBase {
 		case android.R.id.home:
 			Toast.makeText(this, "You're home now!", Toast.LENGTH_SHORT).show();
 			return true;
+		case R.id.action_note:
+			onShowDialog();
+			return true;
 		case R.id.action_setting:
 			mDrawerLayout.openDrawer(Gravity.RIGHT);
 			return true;
@@ -85,5 +96,32 @@ public class HomeActivity extends FragmentActivityBase {
 		}
 		
 		return super.onOptionsItemSelected(menuItem);
+	}
+	
+	public void onShowPopup(View view) {
+		LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		final View inflateView = layoutInflater.inflate(R.layout.dialog_note, null, false);
+		
+		Display display = getWindowManager().getDefaultDisplay();
+		final Point size = new Point();
+		display.getSize(size);
+		
+		mPopupWindow = new PopupWindow(inflateView, size.x -200, size.y - 200);
+		mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog_popup));
+		mPopupWindow.setFocusable(true);
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 100);
+	}
+	
+	public void onShowDialog() {
+		if (!mNoteDialog.isAdded()) {
+			getSupportFragmentManager().beginTransaction().add(mNoteDialog, "Note").commitAllowingStateLoss();
+		}
+	}
+
+	@Override
+	public void onClose() {
+		getSupportFragmentManager().beginTransaction().remove(mNoteDialog).commitAllowingStateLoss();
 	}
 }

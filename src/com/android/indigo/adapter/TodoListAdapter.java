@@ -1,10 +1,14 @@
 package com.android.indigo.adapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.indigo.R;
@@ -18,42 +22,10 @@ public class TodoListAdapter extends ExpandableListItemAdapter<Integer> {
 		this.mContext = context;
 	}
 
-	/*
-	private class ViewHolder {
+	private class TitleViewHolder {
 		TextView tvDate;
 		TextView tvTitle;
-		TextView tvContent;
 	}
-	
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder;
-		View view = convertView;
-		
-		if (view == null) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.adapter_nodelist, parent, false);
-			
-			viewHolder = new ViewHolder();
-			viewHolder.tvTitle = (TextView) view.findViewById(R.id.note_title_text);
-			viewHolder.tvDate = (TextView) view.findViewById(R.id.note_title_text);
-			viewHolder.tvContent = (TextView) view.findViewById(R.id.note_content_text);
-			
-			view.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) view.getTag();
-		}
-		
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		String date = dateFormat.format(calendar.getTime());
-		
-		viewHolder.tvTitle.setText("This is card " + (getItem(position)));
-		viewHolder.tvDate.setText(date);
-		viewHolder.tvContent.setText("This\n is \n Just4Fun's\n property");
-		
-		return view;
-	}
-	*/
 	
 	@Override
 	public View getContentView(int position, View convertView, ViewGroup parent) {
@@ -61,17 +33,34 @@ public class TodoListAdapter extends ExpandableListItemAdapter<Integer> {
 		if (textView == null) {
 			textView = new TextView(mContext);
 		}
-		textView.setText("Card No." + position);
+		textView.setText("This\n is \n Just4Fun's\n property");
 		return textView;
 	}
 
 	@Override
 	public View getTitleView(int position, View convertView, ViewGroup parent) {
-		TextView textView = (TextView) convertView;
-		if (textView == null) {
-			textView = new TextView(mContext);
+		TitleViewHolder titleViewHolder;
+		View view = (View) convertView;
+		
+		if (view == null) {
+			view = LayoutInflater.from(mContext).inflate(R.layout.adapter_todolist_title, parent, false);
+			
+			titleViewHolder = new TitleViewHolder();
+			titleViewHolder.tvTitle = (TextView) view.findViewById(R.id.todo_title_text);
+			titleViewHolder.tvDate = (TextView) view.findViewById(R.id.todo_date_text);
+			
+			view.setTag(titleViewHolder);
+		} else {
+			titleViewHolder = (TitleViewHolder) view.getTag();
 		}
-		textView.setText("This\n is \n Just4Fun's\n property");
-		return textView;
+		
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String date = dateFormat.format(calendar.getTime());
+		
+		titleViewHolder.tvTitle.setText("Card No." + position);
+		titleViewHolder.tvDate.setText(date);
+		
+		return view;
 	}
 }

@@ -1,6 +1,7 @@
 package com.android.indigo.base;
 
 import com.android.indigo.adapter.TabPagerAdapter;
+import com.android.indigo.dialog.NoteDialog;
 import com.android.indigo.utility.SlidingTabStrip;
 
 import android.content.Intent;
@@ -13,6 +14,8 @@ public class FragmentActivityBase extends ActionBarActivity {
 	protected SlidingTabStrip mTabStrip;
 	protected ViewPager mViewPager;
 	protected TabPagerAdapter mTabAdapter;
+	
+	protected NoteDialog mNoteDialog;
 	
 	public void goNextActivity(Intent intent) {
 		startActivityForResult(intent, REQUEST_CODE_BASIC);

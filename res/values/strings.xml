@@ -4,5 +4,10 @@
     <string name="app_name">indigo</string>
     <string name="action_done">Done</string>
     <string name="action_setting">Settings</string>
+    <string name="action_note">Note</string>
 	<string name="preferences_general">General</string>
+	
+	<!-- Dialog elements -->
+	<string name="dialog_note_title">Title</string>
+	<string name="dialog_note_content">Content</string>
 </resources>
