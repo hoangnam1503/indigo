@@ -12,4 +12,8 @@
     <!-- Dialog elements -->
     <color name="dialog_note_header">#dedede</color>
     <color name="dialog_note_content_background">#ffffff</color>
+    
+    <color name="top_item">#a6c</color>
+    <color name="bottom_item">#f44</color>
+    <color name="bottom_item_alt">#c00</color>
 </resources>

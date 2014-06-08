@@ -26,7 +26,7 @@ public class NoteDialog extends DialogFragmentBase {
 		lp.width = (int) (metrics.widthPixels * 0.9);
 		dialog.setContentView(view);
 		dialog.getWindow().setLayout(lp.height, lp.width);
-		
+
 		view.findViewById(R.id.notedialog_close_button).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -37,7 +37,6 @@ public class NoteDialog extends DialogFragmentBase {
 					}
 			}
 		});
-		
 		return dialog;
 	}
 }

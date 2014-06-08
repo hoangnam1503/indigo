@@ -1,11 +1,11 @@
 package com.android.indigo.adapter;
 
-import com.android.indigo.fragment.NoteIndigoFragment;
-import com.android.indigo.fragment.TodoIndigoFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.android.indigo.fragment.TodoIndigoFragment;
+import com.android.indigo.fragment.base.ObservableFragmentBase;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
 	private final String[] mTabsTitle = { "Todo", "Note" };
@@ -25,7 +25,8 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 		case 0:
 			return new TodoIndigoFragment();
 		default:
-			return new NoteIndigoFragment();
+			return new ObservableFragmentBase();
+//			return new QuickReturnFragmentBase();
 		}
 	}
 

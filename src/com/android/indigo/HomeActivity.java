@@ -85,6 +85,8 @@ public class HomeActivity extends FragmentActivityBase implements DialogListener
 			Toast.makeText(this, "You're home now!", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.action_note:
+//			Intent intent = new Intent(HomeActivity.this, TestActivity.class);
+//			goNextActivity(intent);
 			onShowDialog();
 			return true;
 		case R.id.action_setting:
