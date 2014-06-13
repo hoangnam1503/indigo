@@ -2,6 +2,8 @@ package com.android.indigo.utility;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.ScrollView;
 
 /**
@@ -23,6 +25,22 @@ public class ObservableScrollView extends ScrollView {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+    	if (mCallbacks != null) {
+    		switch (event.getActionMasked()) {
+				case MotionEvent.ACTION_DOWN:
+					mCallbacks.onDownMotionEvent();
+					break;
+				case MotionEvent.ACTION_UP:
+				case MotionEvent.ACTION_CANCEL:
+					mCallbacks.onUpOrCancelMotionEvent();
+					break;
+			}
+    	}
+    	return super.onTouchEvent(event);
+    }
+    
+    @Override
     public int computeVerticalScrollRange() {
         return super.computeVerticalScrollRange();
     }
@@ -33,5 +51,7 @@ public class ObservableScrollView extends ScrollView {
 
     public static interface Callbacks {
         public void onScrollChanged(int scrollY);
+        public void onDownMotionEvent();
+        public void onUpOrCancelMotionEvent();
     }
 }
