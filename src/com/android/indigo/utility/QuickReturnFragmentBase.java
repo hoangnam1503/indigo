@@ -1,4 +1,4 @@
-package com.android.indigo.fragment.base;
+package com.android.indigo.utility;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +12,6 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.android.indigo.R;
-import com.android.indigo.utility.ObservableScrollView;
 
 public class QuickReturnFragmentBase extends Fragment implements ObservableScrollView.Callbacks {
     private static final int STATE_ONSCREEN = 0;
@@ -110,7 +109,7 @@ public class QuickReturnFragmentBase extends Fragment implements ObservableScrol
         mQuickReturnView.animate().cancel();
         mQuickReturnView.setTranslationY(translationY + scrollY);
     }
-/*
+
     @Override
     public void onDownMotionEvent() {
         mScrollSettleHandler.setSettleEnabled(false);
@@ -121,7 +120,7 @@ public class QuickReturnFragmentBase extends Fragment implements ObservableScrol
         mScrollSettleHandler.setSettleEnabled(true);
         mScrollSettleHandler.onScroll(mObservableScrollView.getScrollY());
     }
-*/
+
     private class ScrollSettleHandler extends Handler {
         private static final int SETTLE_DELAY_MILLIS = 100;
 
