@@ -12,4 +12,7 @@
 	<string name="dialog_note_content">Content</string>
 	
     <string name="quick_return_item">Quick Return</string>
+    
+    <!-- Fragment settings -->
+    <string name="note_button">Add Note</string>
 </resources>
