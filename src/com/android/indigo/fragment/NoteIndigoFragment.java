@@ -1,11 +1,12 @@
 package com.android.indigo.fragment;
 
 import android.os.Bundle;
+
 import com.android.indigo.adapter.NoteListAdapter;
-import com.android.indigo.fragment.base.ListFragmentBase;
+import com.android.indigo.fragment.base.IndigoListFragmentBase;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
-public class NoteIndigoFragment extends ListFragmentBase {
+public class NoteIndigoFragment extends IndigoListFragmentBase {
 	private NoteListAdapter mNoteListAdapter;
 
 	@Override

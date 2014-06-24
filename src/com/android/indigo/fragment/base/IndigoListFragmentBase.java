@@ -1,12 +1,17 @@
 package com.android.indigo.fragment.base;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
@@ -14,13 +19,17 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.android.indigo.NoteActivity;
 import com.android.indigo.R;
 import com.android.indigo.custom.IndigoListView;
 import com.android.indigo.custom.IndigoListView.Callbacks;
 
 public class IndigoListFragmentBase extends ListFragment implements Callbacks {
+	
+	protected Context mContext;
+	protected ArrayList<Integer> mArrayList;
 
-	private IndigoListView mListView;
+	protected IndigoListView mListView;
 	private TextView mTaskView;
 	private int mTaskViewHeight;
 	private int mScrollY;
@@ -31,10 +40,24 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 	private int mTaskViewInitHeight;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.mContext = getActivity();
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_footer, null);
+		View view = inflater.inflate(R.layout.fragment_content, null);
 		mTaskView = (TextView) view.findViewById(R.id.footer);
+		mTaskView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), NoteActivity.class);
+				startActivity(intent);
+			}
+		});
 		return view;
 	}
 
@@ -59,11 +82,9 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 				new ViewTreeObserver.OnGlobalLayoutListener() {
 					@Override
 					public void onGlobalLayout() {
-//						mQuickReturnHeight = mQuickReturnView.getHeight();
 						mTaskViewHeight = mTaskView.getHeight();
 						mListView.computeScrollY();
 						mTaskViewInitHeight = mListView.getHeight() - mTaskViewHeight;
-//						Log.e("JFF", mListView.getListHeight() + "~" + mListView.computeVerticalScrollRange() + "~" + mTaskViewInitHeight + "~" + mTaskViewHeight);
 					}
 				});
 
@@ -74,76 +95,13 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 					int visibleItemCount, int totalItemCount) {
 
 				mScrollY = 0;
-//				int translationY = 0;
-
 				if (mListView.scrollIsComputed()) {
 					mScrollY = mListView.getComputedScrollY();
 				}
-
-//				int rawY = mTaskViewInitHeight + mScrollY;
-////				
-//				if (mMaxRawY == 0) {
-//					mMaxRawY = mTaskViewInitHeight;
-//				}
-////				
-//				if (mTranslationY == 0) {
-//					mTranslationY = mTaskViewInitHeight;
-//				}
-//				
-//				mTranslationY += rawY - mMaxRawY;
-//				if (mTranslationY > mListView.getHeight()) {
-//					mTranslationY = mListView.getHeight();
-//				} else if (mTranslationY < mTaskViewInitHeight) {
-//					mTranslationY = mTaskViewInitHeight;
-//				}
-//				mMaxRawY = rawY;
-//				mTaskView.animate().cancel();
-//				mTaskView.setTranslationY(mTranslationY - mTaskViewInitHeight);
+				
 				onScrollChanged(mScrollY);
-/*
-				int rawY = mScrollY;
 
-				switch (mState) {
-				case STATE_OFFSCREEN:
-					if (rawY >= mMinRawY) {
-						mMinRawY = rawY;
-					} else {
-						mState = STATE_RETURNING;
-					}
-					translationY = rawY;
-					break;
-
-				case STATE_ONSCREEN:
-					if (rawY > mQuickReturnHeight) {
-						mState = STATE_OFFSCREEN;
-						mMinRawY = rawY;
-					}
-					translationY = rawY;
-					break;
-
-				case STATE_RETURNING:
-
-					translationY = (rawY - mMinRawY) + mQuickReturnHeight;
-
-					System.out.println(translationY);
-					if (translationY < 0) {
-						translationY = 0;
-						mMinRawY = rawY + mQuickReturnHeight;
-					}
-
-					if (rawY == 0) {
-						mState = STATE_ONSCREEN;
-						translationY = 0;
-					}
-
-					if (translationY > mQuickReturnHeight) {
-						mState = STATE_OFFSCREEN;
-						mMinRawY = rawY;
-					}
-					break;
-				}
-
-				*//** this can be used if the build is below honeycomb **//*
+				/** this can be used if the build is below honeycomb **//*
 				if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB) {
 					anim = new TranslateAnimation(0, 0, translationY,
 							translationY);
@@ -152,8 +110,8 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 					mQuickReturnView.startAnimation(anim);
 				} else {
 					mQuickReturnView.setTranslationY(translationY);
-				}
-*/
+				}*/
+
 			}
 
 			@Override
@@ -164,7 +122,6 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 
 	@Override
 	public void onScrollChanged(int scrollY) {
-//		scrollY = Math.min(mMaxScrollY, scrollY);
 		mScrollSettledHandler.onScroll(scrollY);
 		int rawY = mTaskViewInitHeight + scrollY;
 		
@@ -183,7 +140,6 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 			mTranslationY = mTaskViewInitHeight;
 		}
 		mMaxRawY = rawY;
-		mTaskView.animate().cancel();
 		mTaskView.setTranslationY(mTranslationY - mTaskViewInitHeight);
 	}
 
@@ -195,7 +151,23 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 	@Override
 	public void onUpOrCancelMotionEvent() {
 		mScrollSettledHandler.setSettleEnable(true);
-		mScrollSettledHandler.onScroll(mListView.getScrollY());
+		if (mListView.scrollIsComputed()) {
+			mScrollY = mListView.getComputedScrollY();
+		}
+		mScrollSettledHandler.onScroll(mScrollY);
+	}
+
+	public Object getItem(int position) {
+		return mArrayList.get(position);
+	}
+	
+	protected ArrayList<Integer> getItems() {
+		mArrayList = new ArrayList<Integer>();
+		for (int i = 0; i< 10; i++) {
+			mArrayList.add(i);
+		}
+		
+		return mArrayList;
 	}
 
 	private class ScrollSettledHandler extends Handler {
@@ -219,19 +191,18 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 		@Override
 		public void handleMessage(Message msg) {
 			if (mSettleEnable) {
-				float mDestTranslationY;
-				int mAverageHeight = mTaskViewInitHeight + mTaskView.getHeight() / 2;
-				
-				if (mTaskView.getTranslationY() - mSettleScrollY < mAverageHeight) {
-					float tmpY = mTaskView.getTranslationY() - mSettleScrollY - mTaskViewInitHeight;
-					mDestTranslationY = mTaskView.getTranslationY() - tmpY;
-					mTranslationY -= tmpY;
+				if (mSettleScrollY == 0) {
+					mTranslationY = mTaskViewInitHeight;
 				} else {
-					float tmpY = mListView.getHeight() + mSettleScrollY - mTaskView.getTranslationY();
-					mDestTranslationY = mTaskView.getTranslationY() + tmpY;
-					mTranslationY += tmpY;
+					int mAverageHeight = mTaskViewHeight / 2;
+					
+					if (mTaskView.getTranslationY() < mAverageHeight) {
+						mTranslationY = mTaskViewInitHeight;
+					} else {
+						mTranslationY = mListView.getHeight();
+					}
 				}
-				mTaskView.animate().translationY(mDestTranslationY - mTaskViewInitHeight);
+				mTaskView.animate().translationY(mTranslationY - mTaskViewInitHeight);
 			}
 			mSettleScrollY = Integer.MIN_VALUE;
 		}

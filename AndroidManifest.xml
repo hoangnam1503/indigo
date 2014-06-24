@@ -23,7 +23,11 @@
         
         <activity android:name=".HomeActivity"
             android:theme="@style/Theme.Indigo"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" />
+        
+        <activity android:name=".NoteActivity"
+            android:theme="@style/Theme.Indigo"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -10,9 +10,12 @@
 	<!-- Dialog elements -->
 	<string name="dialog_note_title">Title</string>
 	<string name="dialog_note_content">Content</string>
-	
-    <string name="quick_return_item">Quick Return</string>
     
     <!-- Fragment settings -->
     <string name="note_button">Add Note</string>
+    
+    <!-- Activity settings -->
+    <string name="activity_note_title">Note Title</string>
+    <string name="activity_note_content">Note Content</string>
+    <string name="activity_note_button">Note this</string>
 </resources>

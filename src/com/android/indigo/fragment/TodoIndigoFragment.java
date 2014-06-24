@@ -3,10 +3,10 @@ package com.android.indigo.fragment;
 import android.os.Bundle;
 
 import com.android.indigo.adapter.TodoListAdapter;
-import com.android.indigo.fragment.base.ListFragmentBase;
+import com.android.indigo.fragment.base.IndigoListFragmentBase;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 
-public class TodoIndigoFragment extends ListFragmentBase {
+public class TodoIndigoFragment extends IndigoListFragmentBase {
 	private TodoListAdapter mTodoListAdapter;
 	
 	@Override

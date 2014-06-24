@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ public class ListFragmentBase extends ListFragment implements Callbacks {
 	private float mMaxRawY = 0;
 	private float mTranslationY = 0;
 	private int mTaskViewInitHeight;
-	private int mMaxScrollY;
 	private int mScrollY;
 	private ScrollSettledHandler mScrollSettledHandler = new ScrollSettledHandler();
 
@@ -63,7 +61,6 @@ public class ListFragmentBase extends ListFragment implements Callbacks {
 					@Override
 					public void onGlobalLayout() {
 						mListView.computeScrollY();
-						mMaxScrollY = mListView.computeVerticalScrollRange() - mListView.getHeight();
 						mTaskViewInitHeight = mListView.getHeight() - mTaskView.getHeight();
 					}
 				});
@@ -185,14 +182,13 @@ public class ListFragmentBase extends ListFragment implements Callbacks {
 				if (mTaskView.getTranslationY() - mSettleScrollY < mAverageHeight) {
 					float tmpY = mTaskView.getTranslationY() - mSettleScrollY - mTaskViewInitHeight;
 					mDestTranslationY = mTaskView.getTranslationY() - tmpY;
-//					mTranslationY -= mTaskView.getTranslationY() - mSettleScrollY - mTaskViewInitHeight;
+					mTranslationY -= mTaskView.getTranslationY() - mSettleScrollY - mTaskViewInitHeight;
 				} else {
 					float tmpY = mListView.getHeight() + mSettleScrollY - mTaskView.getTranslationY();
 					mDestTranslationY = mTaskView.getTranslationY() + tmpY;
-//					mTranslationY += mListView.getHeight() - mTaskView.getTranslationY() + mSettleScrollY;
+					mTranslationY += mListView.getHeight() - mTaskView.getTranslationY() + mSettleScrollY;
 				}
-//				Log.e("test", "" + mDestTranslationY);
-//				mTaskView.animate().translationY(mDestTranslationY);
+				mTaskView.animate().translationY(mDestTranslationY);
 			}
 			mSettleScrollY = Integer.MIN_VALUE;
 		}

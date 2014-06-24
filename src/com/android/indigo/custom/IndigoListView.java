@@ -2,7 +2,6 @@ package com.android.indigo.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -75,11 +74,9 @@ public class IndigoListView extends ListView {
     		switch (event.getActionMasked()) {
 				case MotionEvent.ACTION_DOWN:
 					mCallbacks.onDownMotionEvent();
-					Log.e("test", "down");
 					break;
 				case MotionEvent.ACTION_UP:
 				case MotionEvent.ACTION_CANCEL:
-					Log.e("test", "up");
 					mCallbacks.onUpOrCancelMotionEvent();
 					break;
 			}
