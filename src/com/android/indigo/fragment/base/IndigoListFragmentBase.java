@@ -23,11 +23,13 @@ import com.android.indigo.NoteActivity;
 import com.android.indigo.R;
 import com.android.indigo.custom.IndigoListView;
 import com.android.indigo.custom.IndigoListView.Callbacks;
+import com.android.indigo.helper.IndigoSQLiteHelper;
 
 public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 	
 	protected Context mContext;
 	protected ArrayList<Integer> mArrayList;
+	protected IndigoSQLiteHelper db;
 
 	protected IndigoListView mListView;
 	private TextView mTaskView;
@@ -43,6 +45,7 @@ public class IndigoListFragmentBase extends ListFragment implements Callbacks {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.mContext = getActivity();
+		this.db = new IndigoSQLiteHelper(getActivity());
 	}
 	
 	@Override

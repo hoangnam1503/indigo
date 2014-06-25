@@ -1,7 +1,6 @@
 package com.android.indigo.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.indigo.R;
+import com.android.indigo.entity.Note;
 import com.nhaarman.listviewanimations.ArrayAdapter;
 
 public class NoteListAdapter extends ArrayAdapter<Integer> {
 	private Context mContext;
+	private ArrayList<Note> noteList = null;
 	
-	public NoteListAdapter(Context context) {
+	public NoteListAdapter(Context context, ArrayList<Note> noteList) {
 		this.mContext = context;
+		this.noteList = noteList;
 	}
 	
 	private class ViewHolder {
@@ -43,13 +45,14 @@ public class NoteListAdapter extends ArrayAdapter<Integer> {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		String date = dateFormat.format(calendar.getTime());
-		
-		viewHolder.tvTitle.setText("Title " + (getItem(position) + 1));
-		viewHolder.tvDate.setText(date);
-		viewHolder.tvContent.setText("This is the content of this card!\n You dont need to keep it in mind!\n Feel free to walk away!");
+//		Calendar calendar = Calendar.getInstance();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//		String date = dateFormat.format(calendar.getTime());
+		Note note = noteList.get(position);
+
+		viewHolder.tvTitle.setText(note.getTitle());
+		viewHolder.tvDate.setText(note.getDate());
+		viewHolder.tvContent.setText(note.getContent());
 		return view;
 	}
 
